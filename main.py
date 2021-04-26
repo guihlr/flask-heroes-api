@@ -39,7 +39,7 @@ API.add_resource(Index, '/', endpoint='index')
 # Não se esqueça de colocar o nome do arquivo que você salvou, no meu caso esta com o nome de "tour-of-heroes-firebase-adminsdk-gds0n-14ebf97e39.json"
 
 cred = firebase_admin.credentials.Certificate(
-    './tour-of-heroes-firebase-adminsdk-gds0n-14ebf97e39.json')
+    './angular-tour-of-heroes-5e483-firebase-adminsdk-esd2q-7a3b83d644.json')
 
 firebase_admin.initialize_app(credential=cred)
 
