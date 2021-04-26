@@ -3,6 +3,8 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask import request
 from flask_cors import CORS
+import firebase_admin
+from firebase_admin import firestore
 
 
 # Aqui iniciamos a API
@@ -31,6 +33,15 @@ class Index(Resource):
 
 # Nossa primeira url
 API.add_resource(Index, '/', endpoint='index')
+
+
+# Iniciando o firebase com as credenciais que você salvou na raiz da aplicação no passo 3.1
+# Não se esqueça de colocar o nome do arquivo que você salvou, no meu caso esta com o nome de "tour-of-heroes-firebase-adminsdk-gds0n-14ebf97e39.json"
+
+cred = firebase_admin.credentials.Certificate(
+    './tour-of-heroes-firebase-adminsdk-gds0n-14ebf97e39.json')
+
+firebase_admin.initialize_app(credential=cred)
 
 
 if __name__ == '__main__':
