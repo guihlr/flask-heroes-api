@@ -1,6 +1,7 @@
 """Hero module"""
 from models.hero import Hero
 
+
 class HeroModule(object):
     """Hero module"""
 
@@ -9,7 +10,7 @@ class HeroModule(object):
         """
         Create a new hero
         :param dict: Request dict params
-        #return Hero: Hero created
+        # return Hero: Hero created
         """
         hero = Hero()
         hero.name = params['name']
@@ -18,3 +19,12 @@ class HeroModule(object):
         hero.universe = params['universe']
         hero.save()
         return hero
+
+    @staticmethod
+    def update(hero, params):
+        """Update hero"""
+        hero.name = params['name']
+        hero.description = params['description']
+        hero.imageUrl = params['imageUrl']
+        hero.universe = params['universe']
+        hero.save()
