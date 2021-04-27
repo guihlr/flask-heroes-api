@@ -1,4 +1,5 @@
 """Arquivo main da API"""
+from views.heroes import HeroesHandler
 from flask import Flask
 from flask_restful import Resource, Api
 from flask import request
@@ -33,6 +34,7 @@ class Index(Resource):
 
 # Nossa primeira url
 API.add_resource(Index, '/', endpoint='index')
+API.add_resource(HeroesHandler, '/heroes', endpoint='heroes')
 
 
 # Iniciando o firebase com as credenciais que você salvou na raiz da aplicação no passo 3.1
