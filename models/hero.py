@@ -47,15 +47,23 @@ class Hero(object):
             return Hero(**hero.to_dict())
         return None
 
+    # Adicionamos um parametro com um valor definido, com isso ele fica opcional
     @classmethod
-    def get_heroes(cls):
+    def get_heroes(cls, cursor=None):
         """Get heroes"""
-        return (
+        # Logo de inicio vamos deixar a consulta pronta com order_by
+        query = (
             MainModule.get_firestore_db()
             .collection(cls._collection_name)
+            .order_by("id")
             .limit(16)
-            .stream()
         )
+
+        # Se tiver o cursor vamos atualizar a consulta com o start_after
+        if cursor:
+            query = query.start_after({"id": cursor})
+        # No final realizamos a consulta e retornamos ela
+        return query.stream()
 
     @classmethod
     def delete(cls, hero_id):

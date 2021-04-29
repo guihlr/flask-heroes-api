@@ -13,7 +13,7 @@ class HeroesHandler(Resource):
         """Get heroes"""
         try:
             # Fazendo a consulta no bda
-            heroes = Hero.get_heroes()
+            heroes = Hero.get_heroes(request.args.get("cursor"))
 
             # Montando a resposta, por enquanto iremos deixar o cursor vazio
             response = {"cursor": None, "heroes": []}
@@ -21,6 +21,11 @@ class HeroesHandler(Resource):
             # Vamos percorrer os herois e transformar em json
             for hero in heroes:
                 response["heroes"].append(hero.to_dict())
+
+            # Adicionando o cursor no resultado da consulta
+            if len(response["heroes"]) == 16:
+                response["cursor"] = response["heroes"][-1]["id"]
+
             return response
 
         except Exception as error:

@@ -68,6 +68,18 @@ class HeroesHandlerTestCase(unittest.TestCase):
         # Conferindo a quantidade de herois que voltou no json
         self.assertEqual(len(response.get_json()["heroes"]), 16)
 
+        # Fazendo a segunda consulta enviando o cursor retornando
+        cursor = response.get_json()["cursor"]
+
+        response = self.app.get(path="/heroes?cursor=" + cursor)
+
+        # Conferindo se voltou 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Conferindo a qtd de herois que volotou no json
+        # Na primeira req voltou 16 herois entao precisa retornar mais 4
+        self.assertEqual(len(response.get_json()["heroes"]), 4)
+
     def test_get_hero(self):
         """Test get hero"""
         # Criando o heroi e salvando o id
