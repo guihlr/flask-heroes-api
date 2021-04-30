@@ -81,3 +81,15 @@ class Hero(object):
             .limit(20)
             .stream()
         )
+
+    @classmethod
+    def search(cls, name):
+        """Search a hero by name"""
+        if name:
+            return (
+                MainModule.get_firestore_db()
+                .collection(cls._collection_name)
+                .where("name", "==", name)
+                .limit(10)
+                .stream()
+            )
